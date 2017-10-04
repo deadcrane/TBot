@@ -378,7 +378,6 @@ class WXBot:
     def get_contact_info(self, uid):
         return self.account_info['normal_member'].get(uid)
 
-
     def get_group_member_info(self, uid):
         return self.account_info['group_member'].get(uid)
 
@@ -482,6 +481,8 @@ class WXBot:
         if not msg:
             return '', []
         segs = msg.split(u'\u2005')
+        if len(segs) <= 1:
+            segs = msg.split(u'\u0020')
         str_msg_all = ''
         str_msg = ''
         infos = []
@@ -818,7 +819,7 @@ class WXBot:
             if check_time < 0.8:
                 time.sleep(1 - check_time)
 
-    def apply_useradd_requests(self,RecommendInfo):
+    def apply_useradd_requests(self, RecommendInfo):
         url = self.base_uri + '/webwxverifyuser?r='+str(int(time.time()))+'&lang=zh_CN'
         params = {
             "BaseRequest": self.base_request,
@@ -827,7 +828,7 @@ class WXBot:
             "VerifyUserList": [
                 {
                     "Value": RecommendInfo['UserName'],
-                    "VerifyUserTicket": RecommendInfo['Ticket']             }
+                    "VerifyUserTicket": RecommendInfo['Ticket']}
             ],
             "VerifyContent": "",
             "SceneListCount": 1,
