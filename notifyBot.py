@@ -118,6 +118,7 @@ class RealTimeNotifyTask(Task):
                 else:
                     touser = self.bot.APP_SERVER + "#" + notice['name'].__str__()
                 self.bot.send_msg(touser, notice['content'])
+                time.sleep(random.uniform(0.5, 1.5) * 20)
         print 'method:' + notice_json['method'].__str__() + '@OK'
 
 
